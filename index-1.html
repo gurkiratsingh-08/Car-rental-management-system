@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090a0e">
+  <title>DRIVE X | Premium Mobility Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#" onclick="navigate('home');return false">DRIVE<span>X</span></a>
+    <div class="side-label">WORKSPACE</div>
+    <nav id="mainNav">
+      <a class="nav-link active" data-page="home"><i>⌂</i><span>Home</span></a>
+      <a class="nav-link" data-page="cars"><i>🚘</i><span>Cars</span><b>1K</b></a>
+      <a class="nav-link" data-page="bookings"><i>▣</i><span>Bookings</span></a>
+      <a class="nav-link" data-page="customers"><i>♙</i><span>Customers</span></a>
+      <a class="nav-link" data-page="rentals"><i>↗</i><span>Active Rentals</span></a>
+      <a class="nav-link" data-page="returns"><i>↩</i><span>Returns</span></a>
+      <a class="nav-link" data-page="maintenance"><i>🔧</i><span>Maintenance</span></a>
+      <a class="nav-link" data-page="payments"><i>₹</i><span>Payments</span></a>
+      <a class="nav-link" data-page="analytics"><i>▥</i><span>Analytics</span></a>
+      <a class="nav-link" data-page="settings"><i>⚙</i><span>Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="admin-avatar">DX</div>
+      <div><strong>Administrator</strong><small>Fleet Manager</small></div>
+      <span class="online-dot"></span>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="breadcrumb">DRIVE X <span>/</span> <b id="currentPage">Home</b></div>
+      <div class="top-actions">
+        <span class="online-status"><i></i> SYSTEM ONLINE</span>
+        <button class="icon-btn" id="notificationBtn" title="Notifications">♧</button>
+        <div class="profile">AD</div>
+      </div>
+    </header>
+
+    <!-- 1. HOME -->
+    <section class="page active" id="home">
+      <section class="hero">
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <span class="eyebrow">THE ART OF DRIVING</span>
+          <h1>DRIVE YOUR<br><span>OWN STORY.</span></h1>
+          <p>Discover extraordinary machines. Experience the road without limits.</p>
+          <div class="hero-buttons">
+            <button class="primary-btn" onclick="navigate('cars')">EXPLORE THE FLEET <span>→</span></button>
+            <button class="outline-btn" onclick="navigate('bookings')">MANAGE BOOKINGS</button>
+          </div>
+          <div class="hero-stats">
+            <div><strong id="heroCars">1,000</strong><small>VEHICLES</small></div>
+            <div><strong>24/7</strong><small>SUPPORT</small></div>
+            <div><strong>20</strong><small>CAR MODELS</small></div>
+          </div>
+        </div>
+        <div class="drift-caption">BMW M PERFORMANCE <span>///</span></div>
+        <div class="drift-smoke smoke-one"></div>
+        <div class="drift-smoke smoke-two"></div>
+        <div class="drift-car" aria-label="BMW drifting">
+          <!-- <img src="assets/cars/bmw-drift.png" alt="BMW drifting" -->
+               <!-- onerror="this.style.display='none';this.nextElementSibling.style.display='block'"> -->
+          <div class="drift-fallback">BMW</div>
+        </div>
+        <div class="hero-bottom">PRECISION · POWER · FREEDOM</div>
+      </section>
+
+      <div class="section-heading">
+        <div><span class="eyebrow">CONTROL CENTER</span><h2>Dashboard Overview</h2></div>
+        <span class="date-label" id="todayDate"></span>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total Vehicles</span><i>🚘</i></div><h2 id="statCars">1,000</h2><small>Fleet inventory</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Active Bookings</span><i>▣</i></div><h2 id="statBookings">100</h2><small>Current reservations</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Customers</span><i>♙</i></div><h2 id="statCustomers">100</h2><small>Registered customers</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Total Revenue</span><i>₹</i></div><h2 id="statRevenue">₹1,00,000</h2><small>Successful payments</small></article>
+      </div>
+
+      <div class="section-heading">
+        <div><span class="eyebrow">HANDPICKED FOR YOU</span><h2>Featured Collection</h2></div>
+        <button class="text-btn" onclick="navigate('cars')">View all cars →</button>
+      </div>
+      <div class="car-grid featured-grid" id="featuredCars"></div>
+
+      <div class="section-heading">
+        <div><span class="eyebrow">DAILY OPERATIONS</span><h2>Recent Bookings</h2></div>
+        <button class="text-btn" onclick="navigate('bookings')">View all →</button>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Booking ID</th><th>Customer</th><th>Vehicle</th><th>Pickup</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody id="recentBookings"></tbody></table>
+      </div>
+    </section>
+
+    <!-- 2. CARS -->
+    <section class="page" id="cars">
+      <div class="page-heading">
+        <div><span class="eyebrow">VEHICLE MANAGEMENT</span><h1>Explore the Fleet</h1><p>Manage your 1,000-vehicle inventory.</p></div>
+        <button class="primary-btn" onclick="openCarModal()">＋ Add Vehicle</button>
+      </div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Total Fleet</span><h2 id="carTotal">1,000</h2></article>
+        <article class="stat-card"><span>Available</span><h2 id="carAvailable">800</h2></article>
+        <article class="stat-card"><span>Rented</span><h2 id="carRented">100</h2></article>
+        <article class="stat-card"><span>Maintenance</span><h2 id="carMaintenance">100</h2></article>
+      </div>
+      <div class="filter-bar">
+        <input id="carSearch" placeholder="Search model, brand or vehicle ID...">
+        <select id="brandFilter"><option value="">All brands</option></select>
+        <select id="categoryFilter"><option value="">All categories</option><option>SUV</option><option>Sedan</option><option>Luxury</option><option>Sports</option><option>Hatchback</option></select>
+        <select id="availabilityFilter"><option value="">All statuses</option><option>Available</option><option>Rented</option><option>Maintenance</option></select>
+      </div>
+      <div class="result-count" id="carCount"></div>
+      <div class="car-grid" id="allCars"></div>
+      <div class="pagination"><button id="prevCars">← Previous</button><span id="pageInfo">Page 1</span><button id="nextCars">Next →</button></div>
+    </section>
+
+    <!-- 3. BOOKINGS -->
+    <section class="page" id="bookings">
+      <div class="page-heading">
+        <div><span class="eyebrow">RESERVATION MANAGEMENT</span><h1>Bookings</h1><p>Manage every customer reservation.</p></div>
+        <button class="primary-btn" onclick="openBookingModal()">＋ New Booking</button>
+      </div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Total Bookings</span><h2 id="bookingTotal">100</h2></article>
+        <article class="stat-card"><span>Confirmed</span><h2 id="bookingConfirmed">100</h2></article>
+        <article class="stat-card"><span>Pending</span><h2 id="bookingPending">0</h2></article>
+        <article class="stat-card"><span>Cancelled</span><h2 id="bookingCancelled">0</h2></article>
+      </div>
+      <input class="search-input" id="bookingSearch" placeholder="Search booking ID, customer or car...">
+      <div class="table-wrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Car</th><th>Start</th><th>End</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="bookingTable"></tbody></table></div>
+    </section>
+
+    <!-- 4. CUSTOMERS -->
+    <section class="page" id="customers">
+      <div class="page-heading">
+        <div><span class="eyebrow">CUSTOMER RELATIONSHIPS</span><h1>Customers</h1><p>Manage customer profiles and contact details.</p></div>
+        <button class="primary-btn" onclick="openCustomerModal()">＋ Add Customer</button>
+      </div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Total Customers</span><h2 id="customerTotal">100</h2></article>
+        <article class="stat-card"><span>Verified Profiles</span><h2 id="customerVerified">100</h2></article>
+      </div>
+      <input class="search-input" id="customerSearch" placeholder="Search name, phone, email or license...">
+      <div class="table-wrap"><table><thead><tr><th>Customer ID</th><th>Name</th><th>Email</th><th>Phone</th><th>License</th><th>Actions</th></tr></thead><tbody id="customerTable"></tbody></table></div>
+    </section>
+
+    <!-- 5. ACTIVE RENTALS -->
+    <section class="page" id="rentals">
+      <div class="page-heading"><div><span class="eyebrow">LIVE FLEET TRACKING</span><h1>Active Rentals</h1><p>Monitor vehicles currently checked out.</p></div></div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Active Rentals</span><h2 id="activeRentals">100</h2></article>
+        <article class="stat-card"><span>Vehicles Out</span><h2 id="vehiclesOut">100</h2></article>
+        <article class="stat-card"><span>Due Today</span><h2 id="dueToday">0</h2></article>
+        <article class="stat-card"><span>Overdue</span><h2 id="overdueRentals">0</h2></article>
+      </div>
+      <input class="search-input" id="rentalSearch" placeholder="Search rental, customer or vehicle...">
+      <div class="table-wrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Vehicle</th><th>Return Date</th><th>Progress</th><th>Action</th></tr></thead><tbody id="rentalTable"></tbody></table></div>
+    </section>
+
+    <!-- 6. RETURNS -->
+    <section class="page" id="returns">
+      <div class="page-heading"><div><span class="eyebrow">VEHICLE CHECK-IN</span><h1>Returns</h1><p>Review completed returns and vehicle condition.</p></div></div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Total Returns</span><h2 id="returnTotal">100</h2></article>
+        <article class="stat-card"><span>Good Condition</span><h2 id="returnGood">100</h2></article>
+        <article class="stat-card"><span>Needs Inspection</span><h2 id="returnIssue">0</h2></article>
+      </div>
+      <input class="search-input" id="returnSearch" placeholder="Search return, customer or car...">
+      <div class="table-wrap"><table><thead><tr><th>Return ID</th><th>Booking</th><th>Customer</th><th>Vehicle</th><th>Return Date</th><th>Condition</th></tr></thead><tbody id="returnTable"></tbody></table></div>
+    </section>
+
+    <!-- 7. MAINTENANCE -->
+    <section class="page" id="maintenance">
+      <div class="page-heading">
+        <div><span class="eyebrow">FLEET CONDITION</span><h1>Maintenance Center</h1><p>Track service schedules, repairs and vehicle health.</p></div>
+        <button class="primary-btn" onclick="openMaintenanceModal()">＋ Add Service</button>
+      </div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Maintenance Records</span><h2 id="serviceCount">100</h2></article>
+        <article class="stat-card"><span>Vehicles in Service</span><h2 id="maintenanceCount">100</h2></article>
+        <article class="stat-card"><span>Completed Services</span><h2 id="serviceCompleted">0</h2></article>
+        <article class="stat-card"><span>Service Cost</span><h2 id="serviceCost">₹0</h2></article>
+      </div>
+      <input class="search-input" id="maintenanceSearch" placeholder="Search service ID, vehicle or issue...">
+      <div class="table-wrap"><table><thead><tr><th>Service ID</th><th>Vehicle</th><th>Issue</th><th>Date</th><th>Cost</th><th>Status</th><th>Action</th></tr></thead><tbody id="maintenanceTable"></tbody></table></div>
+    </section>
+
+    <!-- 8. PAYMENTS -->
+    <section class="page" id="payments">
+      <div class="page-heading"><div><span class="eyebrow">FINANCIAL OPERATIONS</span><h1>Payments</h1><p>Monitor transactions and rental revenue.</p></div></div>
+      <div class="stats-grid compact">
+        <article class="stat-card"><span>Total Revenue</span><h2 id="paymentRevenue">₹1,00,000</h2></article>
+        <article class="stat-card"><span>Transactions</span><h2 id="paymentCount">100</h2></article>
+        <article class="stat-card"><span>Average Payment</span><h2 id="averagePayment">₹1,000</h2></article>
+        <article class="stat-card"><span>Pending Amount</span><h2 id="pendingAmount">₹0</h2></article>
+      </div>
+      <input class="search-input" id="paymentSearch" placeholder="Search payment, booking or customer...">
+      <div class="table-wrap"><table><thead><tr><th>Payment ID</th><th>Booking</th><th>Customer</th><th>Amount</th><th>Method</th><th>Date</th><th>Status</th></tr></thead><tbody id="paymentTable"></tbody></table></div>
+    </section>
+
+    <!-- 9. ANALYTICS -->
+    <section class="page" id="analytics">
+      <div class="page-heading"><div><span class="eyebrow">BUSINESS INTELLIGENCE</span><h1>Analytics</h1><p>Explore performance indicators and fleet insights.</p></div></div>
+      <div class="stats-grid">
+        <article class="stat-card"><span>Analytics Records</span><h2 id="analyticsRecords">100</h2></article>
+        <article class="stat-card"><span>Fleet Utilization</span><h2 id="utilization">10%</h2></article>
+        <article class="stat-card"><span>Total Customers</span><h2 id="analyticsCustomers">100</h2></article>
+        <article class="stat-card"><span>Total Revenue</span><h2 id="analyticsRevenue">₹1,00,000</h2></article>
+      </div>
+      <div class="analytics-grid">
+        <div class="panel"><h3>Booking Status Overview</h3><div class="chart" id="bookingChart"></div></div>
+        <div class="panel"><h3>Fleet Categories</h3><div id="categorySummary"></div></div>
+      </div>
+      <div class="panel analytics-records"><h3>Recent Analytics Records</h3><div class="table-wrap"><table><thead><tr><th>Record ID</th><th>Metric</th><th>Value</th><th>Period</th></tr></thead><tbody id="analyticsTable"></tbody></table></div></div>
+    </section>
+
+    <!-- 10. SETTINGS -->
+    <section class="page" id="settings">
+      <div class="page-heading"><div><span class="eyebrow">PLATFORM CONFIGURATION</span><h1>Settings</h1><p>Manage your rental business preferences.</p></div></div>
+      <div class="settings-panel">
+        <h3>Business Information</h3>
+        <form id="settingsForm">
+          <label>Business Name<input name="business" value="DRIVE X Premium Rentals" required maxlength="80"></label>
+          <label>Contact Email<input name="email" type="email" value="support@drivex.com" required></label>
+          <label>Contact Number<input name="phone" type="tel" value="+91 9876543210" pattern="[0-9+() -]{10,16}" required></label>
+          <label>Default Currency<select name="currency"><option>INR (₹)</option><option>USD ($)</option></select></label>
+          <label>Default Daily Rental Rate (₹)<input name="rate" type="number" min="1" value="2500" required></label>
+          <button class="primary-btn" type="submit">Save Settings</button>
+        </form>
+        <hr>
+        <h3>Data Management</h3>
+        <p class="settings-note">Export your demo records or restore the original sample dataset.</p>
+        <div class="settings-actions"><button class="outline-btn" onclick="exportData()">↓ Export Data (JSON)</button><button class="danger-btn" onclick="resetData()">Reset Demo Data</button></div>
+      </div>
+    </section>
+
+    <footer>© 2026 DRIVE X. Premium Mobility Management Platform.</footer>
+  </main>
+</div>
+
+<!-- Reusable modal -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-header"><div><span class="eyebrow">DRIVE X MANAGEMENT</span><h2 id="modalTitle">Add Record</h2></div><button type="button" id="closeModal" aria-label="Close">✕</button></div>
+    <form id="modalForm"></form>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+<script src="script.js"></script>
+<!-- <r"> -->
+</body>
+</html>
